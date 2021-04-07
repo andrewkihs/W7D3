@@ -32,5 +32,22 @@ RSpec.describe User, type: :model do
         end
     end
 
+    describe '::find_by_credentials' do 
+        babs = FactoryBot.create(:user, username: "babs")
+
+        context 'with valid user' do 
+            it 'should return the user' do 
+                expect(User.find_by_credentials("babs", "password")).to eq(babs)
+            end
+        end
+        
+        context 'with invalid user' do 
+            it 'should return nil if not found' do 
+                expect(User.find_by_credentials("babs", "no-password")).to be_nil
+            end
+        end
+
+    end
+
    
 end
